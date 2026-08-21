@@ -9,7 +9,7 @@
 # Autoconf, Automake, and possibly Libtool installed in order to run
 # this script.
 
-# install all deps from config/deps.py before startings this script
+# install all deps from config/deps.lua before startings this script
 ln -sf /usr/share/libtool/build-aux/ltmain.sh .
 aclocal
 autoheader
