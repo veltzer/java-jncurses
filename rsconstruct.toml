@@ -38,3 +38,9 @@ system = ["swig", "libncursesw5-dev"]
 # lint the GitHub Actions workflow files with actionlint
 [processor.actionlint]
 src_dirs = [".github/workflows"]
+
+# ─── java ────────────────────────────────────────────────────────────────────
+
+[processor.checkstyle]
+src_dirs = ["src/jncursesTest"]
+args = ["-c", "checkstyle.xml"]
