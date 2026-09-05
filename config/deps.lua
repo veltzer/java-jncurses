@@ -9,6 +9,4 @@ PACKAGES = {
     "swig-doc",
     -- for development
     "gcc-doc",
-    -- for swig file
-    "autoconf-archive",
 }

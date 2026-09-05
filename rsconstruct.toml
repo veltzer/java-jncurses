@@ -1,0 +1,40 @@
+# rsconstruct build configuration for this repository.
+
+[analyzer.python]
+
+[processor.ruff]
+src_dirs = ["scripts"]
+
+[processor.pylint]
+src_dirs = ["scripts"]
+
+[processor.mypy]
+src_dirs = ["scripts"]
+
+[processor.luacheck]
+src_dirs = ["config"]
+
+[processor.taplo]
+src_dirs = ["."]
+
+# ─── repo-specific configuration ────────────────────────────────────────────
+
+# The autotools build ran swig over jncurses.i, compiled the wrapper against
+# the JNI headers into libjncurses.so, packaged the generated Java binding
+# into jncurses.jar and compiled the test program against it.
+# scripts/build_jncurses.py runs that exact sequence into out/.
+[processor.explicit.jncurses]
+command = "scripts/build_jncurses.py"
+inputs = ["jncurses.i", "scripts/build_jncurses.py"]
+input_globs = ["src/**/*.java"]
+output_files = ["out/libjncurses.so", "out/jncurses.jar", "out/test.jar"]
+output_dirs = ["out/autosrc", "out/autobin", "out/bin"]
+
+# swig generates the binding; the wide-character ncurses headers and
+# libraries are what the wrapper compiles and links against.
+[dependencies]
+system = ["swig", "libncursesw5-dev"]
+
+# lint the GitHub Actions workflow files with actionlint
+[processor.actionlint]
+src_dirs = [".github/workflows"]
