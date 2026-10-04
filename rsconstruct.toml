@@ -6,17 +6,17 @@ reject_dot_src_dirs = true
 
 [analyzer.python]
 
-[processor.ruff]
+[processor.checker.ruff]
 src_dirs = ["scripts"]
 
 
-[processor.mypy]
+[processor.checker.mypy]
 src_dirs = ["scripts"]
 
-[processor.luacheck]
+[processor.checker.luacheck]
 src_dirs = ["config"]
 
-[processor.taplo]
+[processor.checker.taplo]
 src_files = ["pyproject.toml", "rsconstruct.toml"]
 
 # ─── repo-specific configuration ────────────────────────────────────────────
@@ -25,7 +25,7 @@ src_files = ["pyproject.toml", "rsconstruct.toml"]
 # the JNI headers into libjncurses.so, packaged the generated Java binding
 # into jncurses.jar and compiled the test program against it.
 # scripts/build_jncurses.py runs that exact sequence into out/.
-[processor.explicit.jncurses]
+[processor.explicit.generic.jncurses]
 command = "scripts/build_jncurses.py"
 inputs = ["jncurses.i", "scripts/build_jncurses.py"]
 input_globs = ["src/**/*.java"]
@@ -38,11 +38,11 @@ output_dirs = ["out/autosrc", "out/autobin", "out/bin"]
 system = ["swig", "libncursesw5-dev"]
 
 # lint the GitHub Actions workflow files with actionlint
-[processor.actionlint]
+[processor.checker.actionlint]
 src_dirs = [".github/workflows"]
 
 # ─── java ────────────────────────────────────────────────────────────────────
 
-[processor.checkstyle]
+[processor.checker.checkstyle]
 src_dirs = ["src/jncursesTest"]
 args = ["-c", "checkstyle.xml"]
