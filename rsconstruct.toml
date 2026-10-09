@@ -38,7 +38,7 @@ output_dirs = ["out/autosrc", "out/autobin", "out/bin"]
 system = ["swig", "libncursesw5-dev"]
 
 # lint the GitHub Actions workflow files with actionlint
-[processor.checker.actionlint]
+[processor.checker.iactionlint]
 src_dirs = [".github/workflows"]
 
 # ─── java ────────────────────────────────────────────────────────────────────
