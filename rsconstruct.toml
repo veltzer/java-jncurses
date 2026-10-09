@@ -13,7 +13,7 @@ src_dirs = ["scripts"]
 [processor.checker.mypy]
 src_dirs = ["scripts"]
 
-[processor.checker.luacheck]
+[processor.checker.iluacheck]
 src_dirs = ["config"]
 
 [processor.checker.taplo]
