@@ -43,6 +43,5 @@ src_dirs = [".github/workflows"]
 
 # ─── java ────────────────────────────────────────────────────────────────────
 
-[processor.checker.checkstyle]
+[processor.checker.icheckstyle]
 src_dirs = ["src/jncursesTest"]
-args = ["-c", "checkstyle.xml"]
