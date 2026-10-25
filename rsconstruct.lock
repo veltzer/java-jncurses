@@ -1,0 +1,13 @@
+# rsconstruct.lock: the exact tool versions this project builds with.
+# Written by `rsconstruct tool lock`; move to newer releases with
+# `rsconstruct tool lock --upgrade`. Commit this file; do not edit it by hand.
+
+version = 1
+
+[rsconstruct]
+version = "0.9.140"
+
+[binary.taplo]
+url = "https://github.com/tamasfe/taplo/releases/download/0.10.0/taplo-linux-x86_64.gz"
+sha256 = "8fe196b894ccf9072f98d4e1013a180306e17d244830b03986ee5e8eabeb6156"
+executable_sha256 = "dad2faf6377d2daa4f4fabf459fe7ccfb98a5448f0d4bca8270ca9acb0409bfe"
