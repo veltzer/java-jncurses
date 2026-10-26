@@ -4,9 +4,6 @@
 
 version = 1
 
-[rsconstruct]
-version = "0.9.140"
-
 [binary.taplo]
 url = "https://github.com/tamasfe/taplo/releases/download/0.10.0/taplo-linux-x86_64.gz"
 sha256 = "8fe196b894ccf9072f98d4e1013a180306e17d244830b03986ee5e8eabeb6156"
