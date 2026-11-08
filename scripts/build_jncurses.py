@@ -10,13 +10,15 @@ Steps, exactly as the Makefile did them:
   3. javac + jar package the generated Java sources
   4. the test program under src/ is compiled against the jar into test.jar
 
-Everything generated lands under out/. """
+Everything generated lands under out/, except jncurses_wrap.c, an
+intermediate that goes to a temporary directory. """
 
 import glob
 import os
 import shutil
 import subprocess
 import sys
+import tempfile
 
 PACKAGE = "jncurses"
 OUT = "out"
@@ -47,14 +49,15 @@ def main():
     """ main entry point """
     swig_out = os.path.join(AUTOSRC, PACKAGE)
     os.makedirs(swig_out, exist_ok=True)
-    wrap_c = os.path.join(OUT, f"{PACKAGE}_wrap.c")
-    run(["swig", "-Wall", "-Werror", "-java", "-outdir", swig_out,
-         "-package", PACKAGE, "-o", wrap_c, f"{PACKAGE}.i"])
     lib = os.path.join(OUT, f"lib{PACKAGE}.so")
-    run(["gcc", "-Wall", "-Werror", "-Wno-unused-but-set-variable",
-         "-Wno-unused-function", "-O2", "-fno-strict-aliasing", "-fPIC",
-         "-shared"] + [f"-I{d}" for d in jni_include_dirs()]
-        + ["-o", lib, wrap_c] + LIBS)
+    with tempfile.TemporaryDirectory() as tmp:
+        wrap_c = os.path.join(tmp, f"{PACKAGE}_wrap.c")
+        run(["swig", "-Wall", "-Werror", "-java", "-outdir", swig_out,
+             "-package", PACKAGE, "-o", wrap_c, f"{PACKAGE}.i"])
+        run(["gcc", "-Wall", "-Werror", "-Wno-unused-but-set-variable",
+             "-Wno-unused-function", "-O2", "-fno-strict-aliasing", "-fPIC",
+             "-shared"] + [f"-I{d}" for d in jni_include_dirs()]
+            + ["-o", lib, wrap_c] + LIBS)
     os.makedirs(AUTOCLASSES, exist_ok=True)
     run(["javac", "-Xlint:deprecation", "-Xlint:unchecked", "-d", AUTOCLASSES,
          "-sourcepath", AUTOSRC]
