@@ -59,15 +59,11 @@ def main():
              "-shared"] + [f"-I{d}" for d in jni_include_dirs()]
             + ["-o", lib, wrap_c] + LIBS)
     os.makedirs(AUTOCLASSES, exist_ok=True)
-    run(["javac", "-Xlint:deprecation", "-Xlint:unchecked", "-d", AUTOCLASSES,
-         "-sourcepath", AUTOSRC]
-        + sorted(glob.glob(os.path.join(AUTOSRC, "**", "*.java"), recursive=True)))
+    run(["javac", "-Xlint:deprecation", "-Xlint:unchecked", "-d", AUTOCLASSES, "-sourcepath", AUTOSRC, *sorted(glob.glob(os.path.join(AUTOSRC, "**", "*.java"), recursive=True))])
     jar = os.path.join(OUT, f"{PACKAGE}.jar")
     run(["jar", "-cf", jar, "-C", AUTOCLASSES, "."])
     os.makedirs(TESTCLASSES, exist_ok=True)
-    run(["javac", "-classpath", jar, "-Xlint:deprecation", "-Xlint:unchecked",
-         "-d", TESTCLASSES, "-sourcepath", "src"]
-        + sorted(glob.glob(os.path.join("src", "**", "*.java"), recursive=True)))
+    run(["javac", "-classpath", jar, "-Xlint:deprecation", "-Xlint:unchecked", "-d", TESTCLASSES, "-sourcepath", "src", *sorted(glob.glob(os.path.join("src", "**", "*.java"), recursive=True))])
     run(["jar", "-cf", os.path.join(OUT, "test.jar"), "-C", TESTCLASSES, "."])
 
 
