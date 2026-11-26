@@ -17,7 +17,7 @@ src_dirs = ["scripts"]
 src_dirs = ["config"]
 
 [processor.checker.taplo]
-src_files = ["pyproject.toml", "rsconstruct.toml"]
+src_files = [".ruff.toml", "pyproject.toml", "rsconstruct.toml"]
 
 # ─── repo-specific configuration ────────────────────────────────────────────
 
