@@ -21,8 +21,13 @@ src_dirs = ["config"]
 src_files = ["checkstyle.xml"]
 strict = true
 
+# lint the Markdown files with rumdl (policy: .rumdl.toml)
+[processor.checker.rumdl]
+src_dirs = ["doc"]
+src_files = ["README.md"]
+
 [processor.checker.taplo]
-src_files = [".ruff.toml", "pyproject.toml", "rsconstruct.toml"]
+src_files = [".ruff.toml", ".rumdl.toml", "pyproject.toml", "rsconstruct.toml"]
 
 # ─── repo-specific configuration ────────────────────────────────────────────
 

@@ -1,0 +1,37 @@
+# Markdown lint rules, shared fleet-wide (rsmultigit check same). Carried
+# over from the pydmt-era .markdownlint.json / .mdl.style.rb configs the
+# repos were maintained against: rules those never addressed stay on.
+
+# MD057 (existing-relative-links) is on: a relative link must name a file
+# that exists. Slide decks are linted with .rumdl.marp.toml instead, which
+# also resolves links from the project root: that is where Marp addresses
+# images from, not from the file that holds the link.
+# MD053 (unused-link-image-reference) is on: a comment is written
+# <!-- ... -->, not as the [//1]: <> (...) reference idiom. demos-lang-md,
+# which teaches that idiom, marks those lines per line.
+# MD014 (commands-show-output) wants a shell example either to show its
+# output or to drop the "$" prompt. The prompt is deliberate in these
+# repos: it separates the command from its output and marks the shell
+# being used (a Windows example uses ">"), so the rule's fix would
+# rewrite authored teaching material. Kept off fleet-wide.
+[global]
+disable = ["MD014"]
+
+# MD033 (no-inline-html) is on, allowing only the elements Markdown has no
+# syntax for and the fleet's pages need: Marp slide layouts (div), images
+# sized or styled (img), charts and diagrams drawn in the page (script, svg,
+# canvas), collapsible sections (details, summary), superscript (sup), and
+# left-to-right runs inside Hebrew text (bdi). Any other element is reported.
+[MD033]
+allowed_elements = ["bdi", "canvas", "details", "div", "img", "script", "summary", "sup", "svg"]
+
+[MD007]
+indent = 4
+
+# MD013 (line-length) is effectively off: prose is written one paragraph (or
+# one slide bullet) per line on purpose. Markdown joins wrapped lines anyway,
+# so the rendered slides, PDFs and pages are the same either way, while hard
+# wrapping would make a one-word edit rewrap, and show as changed, every
+# line after it. One line per paragraph keeps a change to one line.
+[MD013]
+line_length = 1000
