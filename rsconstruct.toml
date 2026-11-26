@@ -69,3 +69,8 @@ args = ["--offline", "--no-progress", "--persona=pedantic"]
 
 [processor.checker.icheckstyle]
 src_dirs = ["src/jncursesTest"]
+
+# every lint suppression names a rule and says why (see the fleet's CLAUDE.md)
+[processor.checker.suppressions]
+src_dirs = [".github", "config", "doc", "scripts", "src/jncursesTest"]
+src_files = [".yamllint.yaml", "README.md"]
