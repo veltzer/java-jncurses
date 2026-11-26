@@ -16,6 +16,11 @@ src_dirs = ["scripts"]
 [processor.checker.iluacheck]
 src_dirs = ["config"]
 
+# check the XML files with xmllint
+[processor.checker.ixmllint]
+src_files = ["checkstyle.xml"]
+strict = true
+
 [processor.checker.taplo]
 src_files = [".ruff.toml", "pyproject.toml", "rsconstruct.toml"]
 
