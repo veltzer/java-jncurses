@@ -54,7 +54,7 @@ def main():
         wrap_c = os.path.join(tmp, f"{PACKAGE}_wrap.c")
         run(["swig", "-Wall", "-Werror", "-java", "-outdir", swig_out,
              "-package", PACKAGE, "-o", wrap_c, f"{PACKAGE}.i"])
-        run(["gcc", "-Wall", "-Werror", "-pedantic", "-Wno-unused-but-set-variable",
+        run(["gcc", "-Wall", "-Wextra", "-Werror", "-pedantic", "-Wno-unused-but-set-variable",
              "-Wno-unused-function", "-O2", "-fno-strict-aliasing", "-fPIC",
              "-shared"] + [f"-I{d}" for d in jni_include_dirs()]
             + ["-o", lib, wrap_c] + LIBS)
