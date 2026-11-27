@@ -11,7 +11,6 @@
 /* this is for handling pointers */
 
 %include "typemaps.i"
-%include "arrays_java.i"
 %include "various.i"
 
 %pragma(java) jniclasscode=%{
@@ -300,7 +299,17 @@ int reset_prog_mode(void);
 int reset_shell_mode(void);
 int resetty(void);
 int savetty(void);
+/* These are macros that assign to their arguments. The wrapper passes them
+   locals it never reads back, which gcc reports: the warning is off for
+   these wrappers only. */
+%insert("wrapper") %{
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-but-set-variable"
+%}
 void getsyx(int y, int x);
+%insert("wrapper") %{
+#pragma GCC diagnostic pop
+%}
 void setsyx(int y, int x);
 int ripoffline(int line, int (*init)(WINDOW *, int));
 int curs_set(int visibility);
@@ -407,10 +416,20 @@ int getparx(WINDOW *win);
 int getpary(WINDOW *win);
 
 /* getyx */
+/* These are macros that assign to their arguments. The wrapper passes them
+   locals it never reads back, which gcc reports: the warning is off for
+   these wrappers only. */
+%insert("wrapper") %{
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-but-set-variable"
+%}
 void getyx(WINDOW *win, int y, int x);
 void getparyx(WINDOW *win, int y, int x);
 void getbegyx(WINDOW *win, int y, int x);
 void getmaxyx(WINDOW *win, int y, int x);
+%insert("wrapper") %{
+#pragma GCC diagnostic pop
+%}
 
 /* getcchar */
 int getcchar( const cchar_t *wcval, wchar_t *wch, attr_t *attrs, short *color_pair, void *opts );
