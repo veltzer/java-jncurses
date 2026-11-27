@@ -28,14 +28,14 @@ TESTCLASSES = os.path.join(OUT, "bin")
 LIBS = ["-lncursesw", "-lformw", "-lmenuw", "-lpanelw"]
 
 
-def run(args):
+def run(args: list[str]) -> None:
     """ run a command, aborting the build on failure """
     ret = subprocess.call(args)
     if ret != 0:
         sys.exit(ret)
 
 
-def jni_include_dirs():
+def jni_include_dirs() -> list[str]:
     """ locate the JNI headers next to the javac that is on the PATH """
     javac = shutil.which("javac")
     if javac is None:
@@ -45,7 +45,7 @@ def jni_include_dirs():
     return [include, os.path.join(include, "linux")]
 
 
-def main():
+def main() -> None:
     """ main entry point """
     swig_out = os.path.join(AUTOSRC, PACKAGE)
     os.makedirs(swig_out, exist_ok=True)
